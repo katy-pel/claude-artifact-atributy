@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VŠE Atributy značky</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #009FE3, #0078B3);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .presentation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .slide {
+            background: white;
+            border-radius: 20px;
+            padding: 60px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 159, 227, 0.2);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideIn 0.8s ease-out forwards;
+        }
+
+        .slide:nth-child(2) { animation-delay: 0.2s; }
+        .slide:nth-child(3) { animation-delay: 0.4s; }
+        .slide:nth-child(4) { animation-delay: 0.6s; }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .title-slide {
+            text-align: center;
+            background: linear-gradient(135deg, white, #f8fcff);
+            border: 3px solid #009FE3;
+        }
+
+        .title-slide h1 {
+            font-size: 3.5rem;
+            color: #009FE3;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 159, 227, 0.1);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: #009FE3;
+            margin-bottom: 30px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 60px;
+            height: 6px;
+            background: linear-gradient(90deg, #009FE3, #0078B3);
+            border-radius: 3px;
+        }
+
+        .subsection-title {
+            font-size: 1.8rem;
+            color: #0078B3;
+            margin: 30px 0 20px 0;
+            font-weight: 600;
+            border-bottom: 2px solid #e6f4ff;
+            padding-bottom: 10px;
+        }
+
+        .attributes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .attribute-item {
+            background: linear-gradient(135deg, #f8fcff, white);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #009FE3;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .attribute-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 159, 227, 0.15);
+        }
+
+        .attribute-item strong {
+            color: #009FE3;
+            font-size: 1.1rem;
+        }
+
+        .mental-columns {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .mental-column {
+            counter-reset: item;
+        }
+
+        .mental-column:nth-child(2) {
+            counter-reset: item 5;
+        }
+
+        .mental-column:nth-child(3) {
+            counter-reset: item 10;
+        }
+
+        .mental-column .attribute-item {
+            counter-increment: item;
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 15px;
+        }
+
+        .mental-column .attribute-item::before {
+            content: counter(item);
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            background: #009FE3;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .emotional-2x3 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .emotional-column {
+            counter-reset: item;
+        }
+
+        .emotional-column:nth-child(2) {
+            counter-reset: item 3;
+        }
+
+        .emotional-column .attribute-item {
+            counter-increment: item;
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 15px;
+        }
+
+        .emotional-column .attribute-item::before {
+            content: counter(item);
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            background: #009FE3;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .emotions-2x4 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .physical-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .physical-item {
+            background: linear-gradient(135deg, #f8fcff, white);
+            padding: 15px 20px;
+            border-radius: 10px;
+            border-left: 4px solid #009FE3;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .physical-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 159, 227, 0.2);
+        }
+
+        .physical-item::before {
+            content: '▶';
+            color: #009FE3;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .emotion-box {
+            background: linear-gradient(135deg, #f0f9ff, #e6f4ff);
+            border-left: 6px solid #009FE3;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 159, 227, 0.1);
+        }
+
+        .emotion-box h4 {
+            color: #009FE3;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .emotion-box p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .emotions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px;
+                margin-bottom: 20px;
+            }
+            
+            .title-slide h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .attributes-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .physical-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Title Slide -->
+        <div class="slide title-slide">
+            <h1>Atributy značky</h1>
+        </div>
+
+        <!-- Mental Attributes -->
+        <div class="slide">
+            <h2 class="section-title">Mentální atributy</h2>
+            <div class="mental-columns">
+                <div class="mental-column">
+                    <div class="attribute-item"><strong>Důvěryhodná instituce</strong></div>
+                    <div class="attribute-item"><strong>Prestižní škola</strong></div>
+                    <div class="attribute-item"><strong>Mezinárodně uznávaná škola</strong></div>
+                    <div class="attribute-item"><strong>Špičková úroveň výuky</strong></div>
+                    <div class="attribute-item"><strong>Prakticky zaměřené studium</strong></div>
+                </div>
+                <div class="mental-column">
+                    <div class="attribute-item"><strong>Ceněná škola mezi zaměstnavateli</strong></div>
+                    <div class="attribute-item"><strong>Dobré platové ohodnocení po škole</strong></div>
+                    <div class="attribute-item"><strong>Vhodná škola pro kariéru</strong></div>
+                    <div class="attribute-item"><strong>Dobrý základ pro vlastní podnikání</strong></div>
+                    <div class="attribute-item"><strong>Zajistí mi stabilitu a jistotu do budoucna</strong></div>
+                </div>
+                <div class="mental-column">
+                    <div class="attribute-item"><strong>Škola podporující své studenty</strong></div>
+                    <div class="attribute-item"><strong>Realizuje přínosný výzkum</strong></div>
+                    <div class="attribute-item"><strong>Chová se udržitelně</strong></div>
+                    <div class="attribute-item"><strong>Nabízí obory věnující se udržitelnosti</strong></div>
+                    <div class="attribute-item"><strong>Inovativní, drží krok s dobou</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Physical Attributes -->
+        <div class="slide">
+            <h2 class="section-title">Fyzické atributy</h2>
+            <div class="physical-list">
+                <div class="physical-item">Logo</div>
+                <div class="physical-item">Vizuální styl</div>
+                <div class="physical-item">Grafický manuál pro praxi</div>
+                <div class="physical-item">Foto - RB</div>
+                <div class="physical-item">Ilustrační foto</div>
+                <div class="physical-item">Excelentní vědecké týmy</div>
+                <div class="physical-item">Ambasadoři zaměstnanci</div>
+                <div class="physical-item">Slogan</div>
+                <div class="physical-item">Merch</div>
+                <div class="physical-item">Sportovní týmy</div>
+                <div class="physical-item">Ambasadoři (studenti, vč. EN)</div>
+                <div class="physical-item">Ambasadoři (alumni)</div>
+                <div class="physical-item">Maskot - "VŠEpes"</div>
+            </div>
+        </div>
+
+        <!-- Emotional Attributes -->
+        <div class="slide">
+            <h2 class="section-title">Emoční atributy</h2>
+            
+            <h3 class="subsection-title">Emoční atributy spojené s VŠE</h3>
+            <div class="emotional-2x3">
+                <div class="emotional-column">
+                    <div class="attribute-item"><strong>Ambice & úspěch</strong> – Pocit, že studium tu povede k vynikajícím kariérním příležitostem.</div>
+                    <div class="attribute-item"><strong>Důvěryhodnost & prestiž</strong> – Vnímaná spolehlivost a váha značky „VŠE" jako etablované instituce.</div>
+                    <div class="attribute-item"><strong>Komunita & sounáležitost</strong> – Sdílený pocit kolegiality mezi studenty, akademiky a firemními partnery.</div>
+                </div>
+                <div class="emotional-column">
+                    <div class="attribute-item"><strong>Inovace & otevřenost</strong> – Dojem, že škola podporuje moderní přístupy, digitalizaci a kreativní myšlení.</div>
+                    <div class="attribute-item"><strong>Kariérní jistota & podpora</strong> – Pocit, že školou získáte nejen vzdělání, ale i síť kontaktů a mentoring.</div>
+                    <div class="attribute-item"><strong>Osobní růst & seberealizace</strong> – Vědomí, že se můžete rozvíjet intelektuálně i lidsky.</div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Emoce, které by měla VŠE vyvolávat</h3>
+            <div class="emotions-2x4">
+                <div class="emotion-box">
+                    <h4>Inspirace</h4>
+                    <p>Nadšení pro učení, touhu zkoumat nové oblasti ekonomie a managementu.</p>
+                </div>
+                <div class="emotion-box">
+                    <h4>Důvěra</h4>
+                    <p>Klid a jistota, že výuka je kvalitní, akreditovaná a uznávaná v praxi.</p>
+                </div>
+                <div class="emotion-box">
+                    <h4>Hrdost</h4>
+                    <p>Pocit prestiže při označení se za studenta/absolventa VŠE.</p>
+                </div>
+                <div class="emotion-box">
+                    <h4>Entuziasmus</h4>
+                    <p>Nadšení z projektů, studentských spolků, úspěchů na soutěžích.</p>
+                </div>
+                <div class="emotion-box">
+                    <h4>Sounáležitost</h4>
+                    <p>Teplo a radost z propojení s dalšími studenty, alumni i zaměstnavateli.</p>
+                </div>
+                <div class="emotion-box">
+                    <h4>Sebevědomí</h4>
+                    <p>Vědomí, že po absolvování mají studenti silnou odbornou a praktickou výbavu.</p>
+                </div>
+                <div class="emotion-box">
+                    <h4>Optimismus & naděje</h4>
+                    <p>Pozitivní pohled do budoucna; víra ve vlastní schopnosti uspět.</p>
+                </div>
+                <div class="emotion-box">
+                    <h4>Respekt & uznání</h4>
+                    <p>Vnímání VŠE jako místa, odkud vycházejí lídři a odborníci, jejichž názor má váhu.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer style="text-align: center; color: white; padding: 20px; font-size: 0.9rem; opacity: 0.8;">
+        © 2025 Oddělení marketingu a PR VŠE. Vytvořeno s vizí.
+    </footer>
+
+    <script>
+        // Add hover effects
+        document.querySelectorAll('.attribute-item, .physical-item, .emotion-box').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = this.classList.contains('physical-item') ? 'translateX(5px)' : 'translateY(-3px)';
+                this.style.boxShadow = '0 8px 25px rgba(0, 159, 227, 0.15)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+                this.style.boxShadow = '';
+            });
+        });
+
+        // Smooth scroll behavior
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowDown' || e.key === ' ') {
+                e.preventDefault();
+                window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                window.scrollBy({ top: -window.innerHeight, behavior: 'smooth' });
+            }
+        });
+    </script>
+</body>
+</html>
+commit message
